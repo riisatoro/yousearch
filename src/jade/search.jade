@@ -1,17 +1,23 @@
-- var login_header_list = ["Profile", "Liked videos", "Log out"]
-- var login_header_list_1 = ["profile", "liked", "logout"]
-
+|{% extends 'wrapper.html' %}
 |{% load static %}
-html
-	head
-		title YouSearch
-		|<link rel="stylesheet" href="{% static 'css/reset.css' %}">
-		|<link rel="stylesheet" href="{% static 'css/default.css' %}">
 
-		|<link rel="stylesheet" href="{% static 'css/search.css' %}">
-		|<link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
-		
+|{% block title %}
+title Results
+|{% endblock %}
 
-body
-	
-		
+|{% block style %}
+|<link rel="stylesheet" href="{% static 'css/search.css' %}">
+|{% endblock %}
+
+|{% block body %}
+.grid
+	.text
+		h2.title Result of 
+		|<p class="query"> {{ query }} </p>
+
+	.main-result
+
+	|{% for video in videos %}
+	.side-result
+	|{% endfor %}
+|{% endblock %}

@@ -1,48 +1,27 @@
 - var login_header_list = ["Profile", "Liked videos", "Log out"]
 - var login_header_list_1 = ["profile", "liked", "logout"]
 
+|{% extends 'wrapper.html' %}
 |{% load static %}
-html
-	head
-		title YouSearch
-		|<link rel="stylesheet" href="{% static 'css/reset.css' %}">
-		|<link rel="stylesheet" href="{% static 'css/default.css' %}">
 
-		|<link rel="stylesheet" href="{% static 'css/main.css' %}">
-		|<link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+|{% block title %}
+title YouSearch
+|{% endblock %}
+
+|{% block style %}
+|<link rel="stylesheet" href="{% static 'css/main.css' %}">
+|{% endblock %}
 		
+|{% block body %}
+.search-block
+	.empty
+	form.search-form(method="POST", action="/search/")
+		|{% csrf_token %}
+		.input-block
+			input.search-field(type="text", name="search" placeholder="search")
+			button.search-btn(type="submit")
+	.empty
 
-body
-	.grid
-		header
-			.logo-block
-			.header-menu
-				ul.list-header-menu
-					|{% if logged %}
-					
-					li.list-header-item 
-						a.list-header-link(href="/profile/") Profile
-					li.list-header-item 
-						a.list-header-link(href="/liked/") Liked videos
-					li.list-header-item 
-						a.list-header-link(href="/logout/") Log out
-
-					|{% else %}
-					li.list-header-item 
-						a.list-header-link(href="/random/") Random
-					li.list-header-item 
-						a.list-header-link(href="/login/") Login
-					
-					|{% endif %}
-
-		.search-block
-			.empty
-			form.search-form(method="POST", action="/search/")
-				|{% csrf_token %}
-				.input-block
-					input.search-field(type="text", name="search")
-					button.search-btn(type="submit")
-			.empty
-
-		.title-block
-			h1.title If You search via YouSearch - you are 80% more productive & successfull
+.title-block
+	h1.title If You search via YouSearch - you are 80% more productive & successfull
+|{% endblock %}
