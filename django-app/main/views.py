@@ -5,8 +5,9 @@ class Main(TemplateView):
 	template_name = "main.html"
 
 	def get(self, request):
-		args = {}
+		args = {"logged": False}
 		return render(request, self.template_name, args)
 
 	def post(self, request):
-		pass
+		args = {"logged": False}
+		return render(request, self.template_name, args)
