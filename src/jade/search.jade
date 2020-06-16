@@ -10,14 +10,46 @@ title Results
 |{% endblock %}
 
 |{% block body %}
-.grid
+
+.query-block
 	.text
 		h2.title Result of 
 		|<p class="query"> {{ query }} </p>
 
-	.main-result
+.main-result
+	.main-video-block
+		.main-frame-block
+			|<iframe src="https://www.youtube.com/embed/{{main_video}}/"></iframe>
+		
+		.main-additional-block
+		
+			.link-bnt-block
+				a.original-link
+					button.original-link-btn
+						|<img src="{% static 'img/youtube.png' %}"/>
+		
+			.link-bnt-block
+				a.original-link
+					button.original-link-btn
+						|<img src="{% static 'img/not_liked.png' %}"/>
 
-	|{% for video in videos %}
-	.side-result
-	|{% endfor %}
+	.other-video-block
+		
+		|{% for id in other_video %}
+		.video-blog-list
+			|<iframe src="https://www.youtube.com/embed/{{id}}/"></iframe>
+
+		.additional-block
+			
+			.link-bnt-block
+				a.original-link
+					button.original-link-btn
+						|<img src="{% static 'img/youtube.png' %}"/>
+			
+			.link-bnt-block
+				a.liked-videos
+					button.original-link-btn 
+						|<img src="{% static 'img/not_liked.png' %}"/>
+		|{% endfor %}
+
 |{% endblock %}

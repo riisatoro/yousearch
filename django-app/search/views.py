@@ -5,14 +5,20 @@ from googleapiclient.discovery import build
 import api_token
 
 #youtube api requests
-def get_test(youtube):
-    request = youtube.channels().list(
-        part="statistics",
-        forUsername="shafer5"
+def get_test(youtube, query):
+    request = youtube.search().list(
+    	q=query,
+        part="snippet",
+        type="video",
+        maxResults=10
     )
     response = request.execute()
-    print(response)
-    return response
+
+    data = []
+    print(response["items"][0])
+    for item in response["items"]:
+    	data.append(item["id"]["videoId"])
+    return data
 
 
 class Search(TemplateView):
@@ -25,6 +31,6 @@ class Search(TemplateView):
 
 	def post(self, request):
 		query = request.POST["search"]
-		response = get_test(self.youtube)
-		args = {"query": query}
+		video = get_test(self.youtube, query)
+		args = {"query": query, "main_video": video[0], "other_video": video[1:]}
 		return render(request, self.template_name, args)
