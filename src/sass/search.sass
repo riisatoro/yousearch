@@ -1,40 +1,66 @@
-.main-result
-	width: 90%
-	margin: 0px auto
+@media only screen and (min-width: 320px)
+	.body-wrapper
+		width: 100%
 
-.main-video-block
-	width: 60%
-	height: 280px
-	content-align: center
-	display: grid
-	grid-template-columns: 90% 10%
+	.query-block
+		text-align: center
+		margin: 20px 0px
+		font-size: 1.5em
 
-.main-video-block
-	margin: 0px auto 20px
-	text-align: center
+	.main-result
+		width: 100%
+		margin: 0px auto
+		text-align: center
 
-.main-frame-block > iframe
-	width: 100%
-	height: 280px
+	.like-img
+		width: 25px
+		height: 25px
+		margin: 10px 0px 20px 0px
 
-.main-video-block > iframe
-	width: 100%
-	height: 100%
-	background-color: red
+	.preview-img
+		width: 320px
+		height: 180px
 
-.other-video-block
-	width: 100%
-	margin: 0px auto
-	display: grid
-	grid-template-columns: 28% 5% 28% 5% 28% 5%
-	grid-row-gap: 25px
+	.video-blog-img
+		text-align: center
 
-.video-blog-list
-	text-align: right	
 
-.original-link-btn,
-	width: 40px
-	height: 30px
-	margin: 0px 0px 5px 5px
-	border-radius: 5px
-	background: none
+@media only screen and (min-width: 576px)
+	/*search field*/
+	.search-field
+		width: 90%
+		margin: 0px auto
+
+
+@media only screen and (min-width: 992px)
+	.search-field
+		width: 80%
+
+	.main-video-frame
+		width: 580px
+		height: 360
+
+	.video-title
+		font-size: 1.3em
+	
+	.video-date
+		font-size: 1.2em
+
+	/* grid other videos */
+
+	.other-video-grid
+		display: grid
+		grid-template-columns: 1fr 1fr
+
+	.other-title-block
+		width: auto
+		text-align: center
+
+@media only screen and (min-width: 1200px)
+	.body-wrapper
+		width: 90%
+
+	.other-video-grid
+		display: grid
+		grid-template-columns: 1fr 1fr 1fr
+		grid-gap: 15px

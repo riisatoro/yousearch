@@ -13,15 +13,8 @@ title YouSearch
 |{% endblock %}
 		
 |{% block body %}
-.search-block
-	.empty
-	form.search-form(method="POST", action="/search/")
-		|{% csrf_token %}
-		.input-block
-			input.search-field(type="text", name="search" placeholder="search")
-			button.search-btn(type="submit")
-	.empty
 
 .title-block
-	h1.title If You search via YouSearch - you are 80% more productive & successfull
+	.title-text
+		h1.title If You search via YouSearch - you are 80% more productive & successfull
 |{% endblock %}

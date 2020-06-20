@@ -1,0 +1,19 @@
+{% load static %}
+html
+	head		
+		title Authorization
+		|<link rel="stylesheet" href="{% static 'css/reset.css' %}">
+		|<link rel="stylesheet" href="{% static 'css/default.css' %}">
+		|<link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+
+	body
+		.content-wrapper
+			.login-block
+			
+			.separate-block
+
+			.register-block
+				form
+					|{% csrf_token %}
+					|{{login}}
+					button.login-btn Login

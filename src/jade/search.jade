@@ -11,45 +11,48 @@ title Results
 
 |{% block body %}
 
+
 .query-block
 	.text
-		h2.title Result of 
-		|<p class="query"> {{ query }} </p>
+		|<h2 class="query" >Results for <b>{{ query }}</b></h2>
 
 .main-result
+
 	.main-video-block
 		.main-frame-block
-			|<iframe src="https://www.youtube.com/embed/{{main_video}}/"></iframe>
+			|<iframe class="main-video-frame" src="{{main_video.iframe}}"></iframe>
 		
-		.main-additional-block
-		
-			.link-bnt-block
-				a.original-link
-					button.original-link-btn
-						|<img src="{% static 'img/youtube.png' %}"/>
-		
-			.link-bnt-block
-				a.original-link
-					button.original-link-btn
-						|<img src="{% static 'img/not_liked.png' %}"/>
-
-	.other-video-block
-		
-		|{% for id in other_video %}
-		.video-blog-list
-			|<iframe src="https://www.youtube.com/embed/{{id}}/"></iframe>
-
-		.additional-block
+		.main-data-block
+			.video-title-block
+				|<a href="{{main_video.link}}"> <h3 class="video-title">{{main_video.name}}</h3> </a>
 			
-			.link-bnt-block
-				a.original-link
-					button.original-link-btn
-						|<img src="{% static 'img/youtube.png' %}"/>
-			
-			.link-bnt-block
-				a.liked-videos
-					button.original-link-btn 
-						|<img src="{% static 'img/not_liked.png' %}"/>
-		|{% endfor %}
+			.additional-block
+				.video-date-block
+					|<p class="video-date">{{main_video.date}}</p>
+				.video-liked-block
+					|{% if main_video.liked %}
+					|<img class="like-img" src="{% static 'img/liked.svg' %}"
+					|{% else %}
+					|<img class="like-img" src="{% static 'img/disliked.svg' %}"
+					|{% endif %}
+
+	.other-video-grid
+		|{% for item in other_video %}
+		.other-video-block
+			.video-blog-img
+				|<img class="preview-img" src="{{item.preview}}"/>
+
+			.other-data-block
+				.other-title-block
+					|<a href="{{item.link}}"> <h3 class="video-title">{{item.name}}</h3> </a>
+				.other-date-block
+					|<p class="video-date">{{item.date}}</p>
+				.other-liked-block
+					|{% if item.liked %}
+					|<img class="like-img" src="{% static 'img/liked.svg' %}"
+					|{% else %}
+					|<img class="like-img" src="{% static 'img/disliked.svg' %}"
+					|{% endif %}
+	|{% endfor %}
 
 |{% endblock %}
