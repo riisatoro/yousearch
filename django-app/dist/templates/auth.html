@@ -1,0 +1,50 @@
+{% load static %}
+<html>
+  <head>		
+    <title>Authorization</title><link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/default.css' %}">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+  </head>
+</html>
+<helptext>
+  <body>
+    <div class="content-wrapper">
+      <div class="error-block"><h2>{{errors}}</h2></div>
+      <div class="all-form-block">
+        <div class="login-block">
+          <h2 class="login-header">Login</h2>
+          <form method="POST" action="login/">{% csrf_token %}
+            <input id="id_user" type="text" name="username" required="" maxlenght="50" placeholder="Username"/>
+            <input id="id_password1" type="password" name="password1" required="" placeholder="Password"/>
+            <button class="login-btn">OK</button>
+          </form>
+        </div>
+        <div class="separate-block">
+          <div class="empty"></div>
+          <h2 class="or-header">OR</h2>
+          <div class="empty"></div>
+        </div>
+        <div class="register-block">
+          <h2 class="register-header">Register</h2>
+          <form method="POST" action="register/">{% csrf_token %}
+            <div class="input-block">
+              <input id="id_user" type="text" name="username" required="" maxlenght="50" placeholder="Username"/>
+            </div>
+            <div class="input-block">
+              <input id="id_email" type="email" name="email" required="" placeholder="Email"/>
+            </div>
+            <div class="input-block">
+              <input id="id_password1" type="password" name="password1" required="" placeholder="Password"/>
+            </div>
+            <div class="input-block">
+              <input id="id_password2" type="password" name="password2" required="" placeholder="Password again"/>
+            </div>
+            <button class="login-btn">OK </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="back-block"><a href="/">BACK</a></div>
+  </body>
+</helptext>

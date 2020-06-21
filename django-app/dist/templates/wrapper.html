@@ -1,0 +1,52 @@
+{% load static %}
+<html>
+  <head>
+    {% block title %}
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/default.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet"> 
+    {% block style %}
+    {% endblock %}
+    {% block script %}
+    {% endblock %} 
+  </head>
+  <body>
+    <div class="body-wrapper">
+      <header>
+        <div class="logo-block"><a href="/" class="logo-link"><img class="logo-img" src="{% static "img/logo.png" %}"/></a></div>
+        <div class="header-menu">
+          <ul class="header-list">{% if login %}
+            <li class="header-item"><a href="/liked/" class="header-link"><img src="{% static 'img/profile.png' %}"></a></li>
+            <li class="header-item"><a href="/random/" class="header-link">Random</a></li>
+            <li class="header-item"><a href="/auth/logout/" class="header-link">Logout</a></li>{% else %}
+            <li class="header-item"><a href="/random/" class="header-link">Random</a></li>
+            <li class="header-item"><a href="/auth/" class="header-link">Login</a></li>{% endif %}
+          </ul>
+        </div>
+        <div class="hidden-menu-img"><img class="menu-img" src="{% static "img/hidden.png" %}"/></div>
+      </header>
+      <div class="hidden-menu-list">{% if login %}
+        <div class="header-link-block"><a href="/random/" class="header-link">Random</a></div>
+        <div class="header-link-block"><a href="/liked/" class="header-link">Liked videos</a></div>
+        <div class="header-link-block"><a href="/auth/logout/" class="header-link">Logout</a></div>{% else %}
+        <div class="header-link-block"><a href="/random/" class="header-link">Random</a></div>
+        <div class="header-link-block"><a href="/auth/" class="header-link">Login</a></div>{% endif %}
+      </div>
+      <div class="search-block">
+        <form method="POST" action="/search/" class="search-form">{% csrf_token %}
+          <div class="input-block">
+            <input type="text" name="search" placeholder="Search" maxlenght="100" class="search-field"/>
+            <button type="submit" class="search-btn">OK</button>
+          </div>
+        </form>
+      </div>
+      <div class="content-wrapper">
+        {% block body %}
+        {% endblock %}
+      </div>
+    </div>
+  </body>
+</html><script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="{% static 'js/header_menu.js' %}"></script>

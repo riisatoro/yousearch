@@ -1,0 +1,34 @@
+
+{% extends 'wrapper.html' %}
+{% load static %}
+{% block title %}
+<title>Results</title>{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/liked.css' %}">
+{% endblock %}
+{% block body %}
+<div class="error-block">
+  <div class="text"><h2 class="error" >{{ message }}</b></h2></div>
+</div>{% if is_list %}
+<div class="other-video-grid">{% for item in video %}
+  <div class="other-video-block">
+    <div class="preview-img-block"><img class="preview-img" src="{{item.preview}}"/></div>
+    <div class="other-data-block">
+      <div class="other-title-block"><a href="{{item.link}}"> <h3 class="video-title">{{item.name}}</h3> </a></div>
+      <div class="other-date-block"><p class="video-date">{{item.date}}</p></div>
+      <div class="other-liked-block">
+        <form method="POST" action="/liked/add/" class="like-form">
+          {% csrf_token %}
+          <input type="hidden", name="videoId", value="{{item.id}}">
+          <input type="hidden", name="query", value="{{query}}">
+          {% if item.liked %}
+          <button class="like-btn" type="submit"><img class="like-img" src="{% static 'img/liked.svg' %}"></button>
+          {% else %}
+          <button class="like-btn" type="submit"><img class="like-img" src="{% static 'img/disliked.svg' %}"></button>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </div>{% endfor %}
+</div>{% endif %}
+{% endblock %}

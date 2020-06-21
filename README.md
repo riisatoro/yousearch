@@ -2,6 +2,6 @@
 Easy youtube search web-app
 
 # Install
-Download the project  
+Python 3.x
 Run  
----pipenv shell---
+*pipenv shell*
