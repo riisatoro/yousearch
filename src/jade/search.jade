@@ -14,8 +14,13 @@ title Results
 
 .query-block
 	.text
-		|<h2 class="query" >Results for <b>{{ query }}</b></h2>
+		|<h2 class="query">Results: {{query}}</h2>
 
+|{% if error %}
+.error-block
+	.text
+		|<h2 class="error">{{error_msg}}</h2>	
+|{% else %}
 .main-result
 	.main-video-block
 		.main-frame-block
@@ -60,5 +65,5 @@ title Results
 						|{% endif %}
 			
 		|{% endfor %}
-
+|{% endif %}
 |{% endblock %}

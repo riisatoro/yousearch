@@ -7,6 +7,7 @@ html
 		|<link rel="stylesheet" href="{% static 'css/reset.css' %}">
 		|<link rel="stylesheet" href="{% static 'css/default.css' %}">
 		|<link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+		|<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet"> 
 
 		|{% block style %}
 		|{% endblock %}
@@ -45,8 +46,6 @@ html
 				|{% if login %}
 				.header-link-block
 					a.header-link(href="/random/") Random
-				.header-link-block
-					a.header-link(href="/account/") Account
 				.header-link-block
 					a.header-link(href="/liked/") Liked videos
 				.header-link-block

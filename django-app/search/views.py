@@ -9,16 +9,30 @@ import os
 
 from main import models
 
-#youtube api requests
-def get_test(user, youtube, query):
+def get_from_youtube(youtube,query):
+    #call a youtube api to get video data by query
+    request = youtube.search().list(
+        q=query,
+        part="snippet",
+        type="video",
+        maxResults=13
+        )
+    response = request.execute()
+    return response
+
+
+def get_video_data(user, youtube, query):
+    #save new queries, get videos from youtube
+    #or get old queries and videos of it
     query = query.lower()
-    #check if query already exsists in db
-    db_query = models.Request.objects.filter(query=query).exists()
+    
     data = []
-    if db_query:
+    #check if query already exsists in db
+    db_query = models.Request.objects.filter(query=query)
+    if db_query.exists():
         #unpack videos
-        db_video = models.RequestVideo.objects.filter(request__query=query).all()
-        for item in db_video:
+        db_video = models.RequestVideo.objects.filter(request__query=query)
+        for item in db_video.all():
             tmp = {
                 "id": item.video.vid_id,
                 "name": item.video.name,
@@ -29,23 +43,14 @@ def get_test(user, youtube, query):
                 "liked": models.UserLikedList.objects.filter(
                     user__id = user.id, video__id = item.video.id).all().exists()
             }
-            print(tmp["liked"])
             data.append(tmp)
 
     else:
-        #create a new query in db
+        #create a new user's query in db
         db_query = models.Request.objects.create(query=query)
-        #call a youtube api to get video data by query
-        request = youtube.search().list(
-            q=query,
-            part="snippet",
-            type="video",
-            maxResults=13
-        )
-        response = request.execute()
-
+        response = get_from_youtube(youtube, query)
+        
         #parsing a data from the response
-        data = []
         for item in response["items"]:
             tmp = {
                 "id": item["id"]["videoId"],
@@ -57,13 +62,14 @@ def get_test(user, youtube, query):
                 "liked": models.UserLikedList.objects.filter(
                     user__id = user.id, video__vid_id = item["id"]["videoId"]).all().exists()
             }
-            print(tmp["liked"])
+
+            #if video alreay in database then just connect it to the new user's query
+            db_video = models.Video.objects.filter(vid_id=tmp["id"])
             
-            db_video = models.Video.objects.filter(vid_id=tmp["id"]).exists()
-            if db_video:
-                #connect the existed video to the new query
-                db_video = models.Video.objects.filter(vid_id=tmp["id"]).get()
-                db_video_query = models.RequestVideo.objects.create(request=db_query, video=db_video)
+            if db_video.exists():
+                #connect old video to the new query
+                models.RequestVideo.objects.create(
+                    request=db_query, video=db_video.get())
             else:
                 #add a new video
                 db_video = models.Video.objects.create(
@@ -73,7 +79,9 @@ def get_test(user, youtube, query):
                     iframe = tmp["iframe"],
                     date = tmp["date"],
                     preview = tmp["preview"])
-                db_video_query = models.RequestVideo.objects.create(request=db_query, video=db_video)
+
+                #connect new video to the new query
+                models.RequestVideo.objects.create(request=db_query, video=db_video)
 
             data.append(tmp)
 
@@ -85,20 +93,34 @@ class Search(TemplateView):
     youtube = build('youtube', 'v3', developerKey=api_token.token)
 
     def get(self, request):
-        args = {"login": request.user.is_authenticated,}
-        return render(request, self.template_name, args)
+        if request.user.is_authenticated():
+            return redirect("/liked")
+        else:
+            return redirect("/")
 
     def post(self, request):
         query = request.POST["search"]
-        video = get_test(request.user, self.youtube, query)
-        
-        print("VIDEO", video[0])
+        video = get_video_data(request.user, self.youtube, query)
+        print(video)
+
+        if len(video) > 0:
+            main_video = video[0]
+            other_video = video[1:]
+            error = False
+            error_msg = None
+        else:
+            error = True
+            error_msg = "Sorry, but YouTube can't find any video by Your query :("
+            main_video = None
+            other_video = None
 
         args = {
+            "error": error,
+            "error_msg": error_msg,
             "login": request.user.is_authenticated,
             "query": query,
-            "main_video": video[0],
-            "other_video": video[1:]
+            "main_video": main_video,
+            "other_video": other_video,
             }
 
         return render(request, self.template_name, args)

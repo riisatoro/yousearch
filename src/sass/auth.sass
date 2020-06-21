@@ -1,7 +1,10 @@
-
 @media only screen and (min-width: 320px)
 	.helptext
 		display: none
+
+	.back-block
+		text-align: center
+		margin-bottom: 50px
 
 	.content-wrapper
 		width: 90%
@@ -11,18 +14,74 @@
 		display: block
 		border: 2px solid #2424AA
 		margin-bottom: 10px
+		width: 80%
 
 	.all-form-block
 		display: grid
 		grid-template-columns: 1fr
 		grid-gap: 20px
+		font-size: 1.3em
+
+	.login-block,
+	.register-block
+		text-align: center
+
+	.login-block input,
+	.register-block input
+		margin: 10px auto
+
+	.login-block button
+		background-color: green
+		width: 60px
+		height: 40px
+		color: white
+
+	.register-block button
+		background-color: blue
+		width: 60px
+		height: 40px
+		color: white
+
+	/*or separate*/
+
+	.separate-block
+		width: 100%
+		display: grid
+		grid-template-columns: 2fr 1fr 2fr
+		text-align: center
+
+	.empty
+		width: 100%
+		height: 3px
+		background-color: gray
+		margin-top: 6px
+
+
+
 
 /*@media only screen and (min-width: 576px)*/
 
 @media only screen and (min-width: 992px)
 	.all-form-block
 		display: grid
-		grid-template-columns: 200px 10px 200px
+		grid-template-columns: 3fr 1fr 3fr
+		margin-top: 150px
+
+	.separate-block
+		width: 100%
+		display: grid
+		grid-template-columns: 1fr
+		grid-template-rows: 2fr 1fr 2fr
+		text-align: center
+
+	.empty
+		width: 3px
+		height: 100%
+		background-color: gray
+		margin: 0px auto
+
+	.or-header
+		margin-top: 15px
 
 /*@media only screen and (min-width: 1200px)*/
 
