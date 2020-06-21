@@ -28,13 +28,9 @@ html
 								a.header-link(href="/liked/")
 									|<img src="{% static 'img/profile.png' %}">
 							li.header-item
-								a.header-link(href="/random/") Random
-							li.header-item
 								a.header-link(href="/auth/logout/") Logout
 
 							|{% else %}
-							li.header-item
-								a.header-link(href="/random/") Random
 							li.header-item
 								a.header-link(href="/auth/") Login
 							|{% endif %}
