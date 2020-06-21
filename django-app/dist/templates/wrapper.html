@@ -19,9 +19,7 @@
         <div class="header-menu">
           <ul class="header-list">{% if login %}
             <li class="header-item"><a href="/liked/" class="header-link"><img src="{% static 'img/profile.png' %}"></a></li>
-            <li class="header-item"><a href="/random/" class="header-link">Random</a></li>
             <li class="header-item"><a href="/auth/logout/" class="header-link">Logout</a></li>{% else %}
-            <li class="header-item"><a href="/random/" class="header-link">Random</a></li>
             <li class="header-item"><a href="/auth/" class="header-link">Login</a></li>{% endif %}
           </ul>
         </div>
