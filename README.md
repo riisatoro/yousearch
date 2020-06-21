@@ -1,7 +1,14 @@
-# yousearch
+# YouSearch
 Easy youtube search web-app
 
-# Install
-Python 3.x
-Run  
-*pipenv shell*
+# Requirements
+*Python 3.x*
+*Django 2.x*
+*Google-api-python-client*
+*Pipenv*
+
+
+# Run
+In django-app  
+*python manage.py runserver*
+
