@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
+
+from main import models
 
 class Main(TemplateView):
 	template_name = "liked.html"
@@ -33,5 +35,20 @@ class NewLiked(TemplateView):
 
 
 	def post(self, request):
-		print("LIKED TO ", request.POST["videoID"])
-		return render(request, self.template_name, args)
+		liked = request.POST["videoId"]
+		query = request.POST["query"]
+
+		print(liked)
+
+		db_video = models.UserLikedList.objects.filter(
+			user__id=request.user.id, video__vid_id=liked)
+
+		if db_video.exists():
+			db_video.delete()
+		else:
+			video = models.Video.objects.get(vid_id=liked)
+			user = models.AuthUser.objects.get(id=request.user.id)
+			models.UserLikedList.objects.create(
+			user=user, video=video)
+		
+		return redirect("/liked")

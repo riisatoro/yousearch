@@ -29,6 +29,8 @@ title Results
 			.other-liked-block
 				form.like-form(method="POST", action="/liked/add/")
 					|{% csrf_token %}
+					|<input type="hidden", name="videoId", value="{{main_video.id}}">
+					|<input type="hidden", name="query", value="{{query}}">
 					|{% if main_video.liked %}
 					|<button class="like-btn" type="submit"><img class="like-img" src="{% static 'img/liked.svg' %}"></button>
 					|{% else %}
@@ -49,6 +51,8 @@ title Results
 				.other-liked-block
 					form.like-form(method="POST", action="/liked/add/")
 						|{% csrf_token %}
+						|<input type="hidden", name="videoId", value="{{item.id}}">
+						|<input type="hidden", name="query", value="{{query}}">
 						|{% if item.liked %}
 						|<button class="like-btn" type="submit"><img class="like-img" src="{% static 'img/liked.svg' %}"></button>
 						|{% else %}

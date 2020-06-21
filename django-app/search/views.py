@@ -20,7 +20,7 @@ def get_test(user, youtube, query):
         db_video = models.RequestVideo.objects.filter(request__query=query).all()
         for item in db_video:
             tmp = {
-                "id": item.video.id,
+                "id": item.video.vid_id,
                 "name": item.video.name,
                 "link": item.video.link,
                 "iframe": item.video.iframe,
@@ -91,6 +91,9 @@ class Search(TemplateView):
     def post(self, request):
         query = request.POST["search"]
         video = get_test(request.user, self.youtube, query)
+        
+        print("VIDEO", video[0])
+
         args = {
             "login": request.user.is_authenticated,
             "query": query,
