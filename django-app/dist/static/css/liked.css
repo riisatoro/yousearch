@@ -5,7 +5,9 @@
   .error {
     font-size: 1.3em; }
   .body-wrapper {
-    margin: 0px; }
+    margin: 0px autho; }
+  .content-wrapper {
+    margin: 0px autho; }
   .like-img {
     height: 30px;
     width: 30px; }
