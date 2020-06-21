@@ -10,7 +10,7 @@ import os
 from main import models
 
 #youtube api requests
-def get_test(request, youtube, query):
+def get_test(user, youtube, query):
     query = query.lower()
     #check if query already exsists in db
     db_query = models.Request.objects.filter(query=query).exists()
@@ -27,7 +27,7 @@ def get_test(request, youtube, query):
                 "date": item.video.date,
                 "preview": item.video.preview,
                 "liked": models.UserLikedList.objects.filter(
-                    user__id = request.user.id, video__id = item.video.id).all().exists()
+                    user__id = user.id, video__id = item.video.id).all().exists()
             }
             print(tmp["liked"])
             data.append(tmp)
@@ -55,7 +55,7 @@ def get_test(request, youtube, query):
                 "date": item["snippet"]["publishedAt"].split("T")[0],
                 "preview": item["snippet"]["thumbnails"]["medium"]["url"],
                 "liked": models.UserLikedList.objects.filter(
-                    user__id = request.user.id, video__vid_id = item["id"]["videoId"]).all().exists()
+                    user__id = user.id, video__vid_id = item["id"]["videoId"]).all().exists()
             }
             print(tmp["liked"])
             
@@ -90,7 +90,7 @@ class Search(TemplateView):
 
     def post(self, request):
         query = request.POST["search"]
-        video = get_test(request, self.youtube, query)
+        video = get_test(request.user, self.youtube, query)
         args = {
             "login": request.user.is_authenticated,
             "query": query,

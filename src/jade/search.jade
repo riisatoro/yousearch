@@ -17,29 +17,28 @@ title Results
 		|<h2 class="query" >Results for <b>{{ query }}</b></h2>
 
 .main-result
-
 	.main-video-block
 		.main-frame-block
 			|<iframe class="main-video-frame" src="{{main_video.iframe}}"></iframe>
 		
 		.main-data-block
-			.video-title-block
+			.other-title-block
 				|<a href="{{main_video.link}}"> <h3 class="video-title">{{main_video.name}}</h3> </a>
-			
-			.additional-block
-				.video-date-block
-					|<p class="video-date">{{main_video.date}}</p>
-				.video-liked-block
+			.other-date-block
+				|<p class="video-date">{{main_video.date}}</p>
+			.other-liked-block
+				form.like-form(method="POST", action="/liked/add/")
+					|{% csrf_token %}
 					|{% if main_video.liked %}
-					|<img class="like-img" src="{% static 'img/liked.svg' %}"
+					|<button class="like-btn" type="submit"><img class="like-img" src="{% static 'img/liked.svg' %}"></button>
 					|{% else %}
-					|<img class="like-img" src="{% static 'img/disliked.svg' %}"
+					|<button class="like-btn" type="submit"><img class="like-img" src="{% static 'img/disliked.svg' %}"></button>
 					|{% endif %}
 
 	.other-video-grid
 		|{% for item in other_video %}
 		.other-video-block
-			.video-blog-img
+			.preview-img-block
 				|<img class="preview-img" src="{{item.preview}}"/>
 
 			.other-data-block
@@ -48,11 +47,14 @@ title Results
 				.other-date-block
 					|<p class="video-date">{{item.date}}</p>
 				.other-liked-block
-					|{% if item.liked %}
-					|<img class="like-img" src="{% static 'img/liked.svg' %}"
-					|{% else %}
-					|<img class="like-img" src="{% static 'img/disliked.svg' %}"
-					|{% endif %}
-	|{% endfor %}
+					form.like-form(method="POST", action="/liked/add/")
+						|{% csrf_token %}
+						|{% if item.liked %}
+						|<button class="like-btn" type="submit"><img class="like-img" src="{% static 'img/liked.svg' %}"></button>
+						|{% else %}
+						|<button class="like-btn" type="submit"><img class="like-img" src="{% static 'img/disliked.svg' %}"></button>
+						|{% endif %}
+			
+		|{% endfor %}
 
 |{% endblock %}

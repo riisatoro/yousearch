@@ -33,4 +33,5 @@ class NewLiked(TemplateView):
 
 
 	def post(self, request):
+		print("LIKED TO ", request.POST["videoID"])
 		return render(request, self.template_name, args)

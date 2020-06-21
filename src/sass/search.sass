@@ -1,66 +1,75 @@
 @media only screen and (min-width: 320px)
 	.body-wrapper
 		width: 100%
+		margin: 0px auto
+
+	.main-video-block
+		width: 300px
+		margin: 0px auto
+		text-align: center
 
 	.query-block
 		text-align: center
-		margin: 20px 0px
-		font-size: 1.5em
-
-	.main-result
-		width: 100%
-		margin: 0px auto
-		text-align: center
+		margin: 15px 0px
+		font-size: 1.3em
 
 	.like-img
-		width: 25px
-		height: 25px
-		margin: 10px 0px 20px 0px
+		height: 30px
+		width: 30px
 
-	.preview-img
-		width: 320px
-		height: 180px
-
-	.video-blog-img
+	.preview-img-block
 		text-align: center
 
+	.other-liked-block
+		margin-bottom: 20px
 
-@media only screen and (min-width: 576px)
-	/*search field*/
-	.search-field
-		width: 90%
-		margin: 0px auto
+	.other-video-grid
+		display: grid
+		grid-template-columns: 1fr
 
+	.other-data-block
+		text-align: center
+
+	.other-date-block
+		margin-top: 5px
+
+	.like-btn
+		margin: 0px
+		margin-bottom: 15px
+		padding: 0px
+		width: 30px
+		height: 30px
+		background-color: white
+
+	.other-title-block
+		margin-top: 10px
+
+	.other-data-block > div
+		margin-bottom: 10px
+
+/*@media only screen and (min-width: 576px)*/
 
 @media only screen and (min-width: 992px)
-	.search-field
-		width: 80%
+	.main-video-block
+		width: 70%
+		margin: 0px auto
 
 	.main-video-frame
-		width: 580px
-		height: 360
+		width: 100%
+		height: 360px
 
-	.video-title
-		font-size: 1.3em
-	
-	.video-date
-		font-size: 1.2em
-
-	/* grid other videos */
+	.main-frame-block
+		margin: 0px auto
+		width: 680px
+		height: 360px
 
 	.other-video-grid
 		display: grid
 		grid-template-columns: 1fr 1fr
-
-	.other-title-block
-		width: auto
-		text-align: center
+		grid-gap: 20px	
 
 @media only screen and (min-width: 1200px)
-	.body-wrapper
-		width: 90%
-
 	.other-video-grid
 		display: grid
 		grid-template-columns: 1fr 1fr 1fr
-		grid-gap: 15px
+		grid-gap: 20px	
