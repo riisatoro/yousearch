@@ -15,7 +15,6 @@ class Main(TemplateView):
 	def post(self, request):
 		form = RegisterForm(request.POST)
 		if form.is_valid():
-			print("[VALID]")
 			form.save()
 			return redirect("/account")
 		else:
@@ -53,9 +52,13 @@ class Login(TemplateView):
 	def post(self, request):
 		username=request.POST["username"]
 		password=request.POST["password1"]
-		user = authenticate(request, username=username, password=password)		
-		login(request, user)
-		return redirect("/")
+		try:
+			user = authenticate(request, username=username, password=password)		
+			login(request, user)
+			return redirect("/")
+		except:
+			pass
+		return redirect("/auth")
 
 
 class Logout(TemplateView):
