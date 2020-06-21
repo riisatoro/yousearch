@@ -1,19 +1,43 @@
-{% load static %}
+|{% load static %}
+
 html
 	head		
 		title Authorization
 		|<link rel="stylesheet" href="{% static 'css/reset.css' %}">
 		|<link rel="stylesheet" href="{% static 'css/default.css' %}">
+		|<link rel="stylesheet" href="{% static 'css/auth.css' %}">
 		|<link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
-
+helptext
+	
 	body
 		.content-wrapper
-			.login-block
-			
-			.separate-block
+			.error-block
+				|<h2>{{errors}}</h2>
 
-			.register-block
-				form
-					|{% csrf_token %}
-					|{{login}}
-					button.login-btn Login
+			.all-form-block
+				.login-block
+					h2.login-header Login
+					form(method="POST" action="login/")
+						|{% csrf_token %}
+						input(id="id_user", type="text", name="username", required="", maxlenght=50,  placeholder="Username")
+						input(id="id_password1", type="password", name="password1", required="" placeholder="Password")
+						button.login-btn OK
+				
+				.separate-block
+					.empty
+					h2.or-header OR
+					.empty
+
+				.register-block
+					h2.register-header Register
+					form(method="POST" action="register/")
+						|{% csrf_token %}
+						.input-block
+							input(id="id_user", type="text", name="username", required="", maxlenght=50,  placeholder="Username")
+						.input-block
+							input(id="id_email", type="email", name="email", required="", placeholder="Email")
+						.input-block
+							input(id="id_password1", type="password", name="password1", required="" placeholder="Password")
+						.input-block
+							input(id="id_password2", type="password", name="password2", required="" placeholder="Password again")
+						button.login-btn OK

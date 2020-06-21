@@ -1,6 +1,3 @@
-- var header_menu_anonym = ["Random", "Auth"]
-- var header_menu_login = ["Random", "Profile", "Liked", "Logout"]
-
 |{% load static %}
 html
 	head
@@ -15,7 +12,7 @@ html
 		|{% endblock %}
 
 		|{% block script %}
-		|{% endblock %}
+		|{% endblock %} 
 
 	body
 		.body-wrapper
@@ -29,15 +26,20 @@ html
 							li.header-item
 								a.header-link(href="/profile")
 									|<img src="{% static 'img/profile.png' %}">
-
-							for item in header_menu_login
-								li.header-item
-									a.header-link(href="/"+item)=item
+							li.header-item
+								a.header-link(href="/random/") Random
+							li.header-item
+								a.header-link(href="/account/") Account
+							li.header-item
+								a.header-link(href="/liked/") Liked videos
+							li.header-item
+								a.header-link(href="/auth/logout/") Logout
 
 							|{% else %}
-							for item in header_menu_anonym
-								li.header-item
-									a.header-link(href=item)=item
+							li.header-item
+								a.header-link(href="/random/") Random
+							li.header-item
+								a.header-link(href="/auth/") Login
 							|{% endif %}
 
 				.hidden-menu-img
@@ -45,21 +47,27 @@ html
 
 			.hidden-menu-list
 				|{% if login %}
-				for item in header_menu_login
-					.header-link-block
-						a.header-link(href=item)=item
+				.header-link-block
+					a.header-link(href="/random/") Random
+				.header-link-block
+					a.header-link(href="/account/") Account
+				.header-link-block
+					a.header-link(href="/liked/") Liked videos
+				.header-link-block
+					a.header-link(href="/auth/logout/") Logout
 
 				|{% else %}
-				for item in header_menu_anonym
-					.header-link-block
-						a.header-link(href=item)=item
+				.header-link-block
+					a.header-link(href="/random/") Random
+				.header-link-block
+					a.header-link(href="/auth/") Login
 				|{% endif %}
 			
 			.search-block
 				form.search-form(method="POST", action="/search/")
 					|{% csrf_token %}
 					.input-block
-						input.search-field(type="text", name="search" placeholder="Search")
+						input.search-field(type="text", name="search" placeholder="Search" maxlenght="100")
 						button.search-btn(type="submit") OK
 		
 			.content-wrapper
